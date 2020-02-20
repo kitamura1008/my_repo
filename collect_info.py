@@ -6,13 +6,14 @@ import os
 DATA_DIR = os.path.dirname(__file__)
 DATABASE_FILENAME = os.path.join(DATA_DIR, 'agency_property_db.sqlite3')
 agencies_url = 'http://data-phl.opendata.arcgis.com/datasets/3265538198254e9fb6a8974745adab51_0.geojson'
+
 '''
 Question
 Do we need to use this API url(https://services.arcgis.com/fLeGjb7u4uXqeF9q/ar\
 cgis/rest/services/HousingCounselingAgencies/FeatureServer/0/query?\
-outFields=*&where=1%3D1),and convert from text data to sqlite database??
+outFields=*&where=1%3D1) to collect agencies' data, and convert from text data to sqlite database?
 
-In the following data, I use json data from the agencies_url.
+In the following collect_agencies funciton, I use json data from the agencies_url.
 '''
 
 def collect_agencies(url=agencies_url):
@@ -21,11 +22,11 @@ def collect_agencies(url=agencies_url):
     Input:
         url:agencies_url
    '''
-    response = requests.get(url)         # Get agencies data from the url.
+    response = requests.get(url)                                              # Get agencies data from the url.
     results = response.json()
     agencies_data = results["features"]
 
-    conn = sqlite3.connect(DATABASE_FILENAME) # Create a DataBase
+    conn = sqlite3.connect(DATABASE_FILENAME)                                 # Create a DataBase
     cur = conn.cursor()
     cur.execute("CREATE TABLE agencies_table (ID TEXT PRIMARY KEY, Agency,\
                  PHONE_NUMBER, STREET_ADDRESS, ZIP_CODE, URL, LON, LAT)")     # Create tabole
@@ -43,4 +44,6 @@ def collect_agencies(url=agencies_url):
         conn.commit()
     conn.close()
 
-# Need to make a function which operate property database 
+# Need to make a function which to queries the property data via Carto's SQL API.
+
+
