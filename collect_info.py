@@ -28,8 +28,8 @@ def collect_agencies(url=agencies_url):
     conn = sqlite3.connect(DATABASE_FILENAME) # Create a DataBase
     cur = conn.cursor()
     cur.execute("CREATE TABLE agencies_table (ID TEXT PRIMARY KEY, Agency,\
-                 PHONE_NUMBER, STREET_ADDRESS, ZIP_CODE, URL, LON, LAT)")
-    for i in agencies_data:
+                 PHONE_NUMBER, STREET_ADDRESS, ZIP_CODE, URL, LON, LAT)")     # Create tabole
+    for i in agencies_data:                                                   # Insert info
         id_num = i['properties']['OBJECTID'] 
         agency = i['properties']['AGENCY']
         phone_num = i['properties']['PHONE_NUMBER']
