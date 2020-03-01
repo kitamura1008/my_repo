@@ -1,8 +1,12 @@
 import pandas as pd
 from math import radians, cos, sin, asin, sqrt, ceil
 
-agencies_url = 'http://data-phl.opendata.arcgis.com/datasets/3265538198254e9fb6a8974745adab51_0.csv'
-properties_url = 'https://phl.carto.com/api/v2/sql?q=SELECT+*+FROM+real_estate_tax_delinquencies&filename=real_estate_tax_delinquencies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
+agencies_url = 'http://data-phl.opendata.arcgis.com/data\
+sets/3265538198254e9fb6a8974745adab51_0.csv'
+
+properties_url = 'https://phl.carto.com/api/v2/sql?q=SELECT+*+FROM\
++real_estate_tax_delinquencies&filename=real_estate_tax_delinquenc\
+ies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
 
 
 def create_dfs():
