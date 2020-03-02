@@ -18,7 +18,11 @@ def create_dfs():
         agencies_df and properties_df(Pandas data frame)
     '''
     agencies_df = pd.read_csv(agencies_url)
+    #agencies_df = agencies_df[agencies_df['FORECLOSURE'] == 'Yes']
+    
+    #dropped_
     properties_df = pd.read_csv(properties_url)
+
     return agencies_df, properties_df
 
 def search_closest_agency(property_id, agencies_df, properties_df):
@@ -58,6 +62,8 @@ def search_closest_agency(property_id, agencies_df, properties_df):
 
 def get_lst_closest_agencies(agencies_df, properties_df):
     '''
+    # This is time comsuming.
+
     #Given Object_id of an agency, find out list of properties
     #whose closest agency is the agency.
     '''
