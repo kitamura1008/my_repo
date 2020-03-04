@@ -8,7 +8,6 @@ properties_url = 'https://phl.carto.com/api/v2/sql?q=SELECT+*+FROM\
 +real_estate_tax_delinquencies&filename=real_estate_tax_delinquenc\
 ies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
 
-
 def create_dfs():
     '''
     Create two data frames, agencies_df and properties_df
@@ -18,12 +17,45 @@ def create_dfs():
         agencies_df and properties_df(Pandas data frame)
     '''
     agencies_df = pd.read_csv(agencies_url)
-    #agencies_df = agencies_df[agencies_df['FORECLOSURE'] == 'Yes']
-    
-    #dropped_
     properties_df = pd.read_csv(properties_url)
 
     return agencies_df, properties_df
+
+def data_cleaning(agencies_df, properties_df):
+    '''
+    Clean dataframe.
+
+    '''
+    agencies_df = agencies_df[(agencies_df['FORECLOSURE'] == 'Yes' )] #&
+                             # (agencies_df['SPECIALTY'] != any)
+
+    properties_df = properties_df.drop(['return_mail', 'zip_code', 'zip_4', 'unit_type',
+        'unit_num', 'co_owner', 'agreement_agency', 'payment_agreement', 
+        'mailing_address', 'mailing_city', 'mailing_state', 'mailing_zip',
+        'years_in_bankruptcy', 'most_recent_bankrupt_year', 
+        'oldest_bankrupt_year', 'principal_sum_bankrupt_years',
+        'total_amount_bankrupt_years'], axis=1)
+
+    properties_df = properties_df.dropna(how='any')
+    properties_df = properties_df[properties_df['building_category'] == 'residential']
+
+    return agencies_df, properties_df
+
+def append_column_closet_agency(agencies_df, properties_df):
+    '''
+    Apepend a column which indicate the closest agency from each property.
+
+    Inputs
+        agencies_df (pandas framework): agencies dataset
+        properties_df (pandas framework):properties dataset
+    Output
+        properties_df with a column of closest agencies.
+    '''
+    lst_closest_ags = get_lst_closest_agencies(agencies_df, properties_df)
+    properties_df['closest agency'] = lst_closest_ags
+
+    return properties_df
+
 
 def search_closest_agency(property_id, agencies_df, properties_df):
     '''
@@ -37,11 +69,9 @@ def search_closest_agency(property_id, agencies_df, properties_df):
     '''
 
     properties_df = properties_df[properties_df['objectid'] == property_id]
-    properties_df = properties_df[(properties_df['lon'] != 'NaN') &
-                                  (properties_df['lat'] != 'NaN')] # unnecessary after data cleaning
     prop_lon, prop_lat = tuple(properties_df[['lon', 'lat']].values.tolist()[0])
 
-    min_distance = 9999.99
+    min_distance = 999999.99
     closest_ag_id = 0
     closest_ag_lon = .0
     closest_ag_lat = .0
@@ -62,15 +92,10 @@ def search_closest_agency(property_id, agencies_df, properties_df):
 
 def get_lst_closest_agencies(agencies_df, properties_df):
     '''
-    # This is time comsuming.
-
-    #Given Object_id of an agency, find out list of properties
-    #whose closest agency is the agency.
+    Given Object_id of an agency, compute list of the closest agency from each agency.
     '''
     
     lst_closest_ags = []
-    properties_df = properties_df[(properties_df['lon'] != 'NaN') &
-                                  (properties_df['lat'] != 'NaN')] # unnecessary after data cleaning
     for prop_row in properties_df.itertuples(index=False, name=None):
         min_distance = 9999.99
         closest_ag_id = 0
@@ -81,13 +106,14 @@ def get_lst_closest_agencies(agencies_df, properties_df):
             if dist_squared < min_distance:
                 min_distance = dist_squared
                 closest_ag_id = agencies_row[2]
-                closest_ag_lon = agencies_row[0]
-                closest_ag_lat = agencies_row[1]
+               #closest_ag_lon = agencies_row[0]
+               #closest_ag_lat = agencies_row[1]
 
-    # ft = haversine(prop_lon, prop_lat, closest_ag_lon, closest_ag_lat)
+      # ft = haversine(prop_lon, prop_lat, closest_ag_lon, closest_ag_lat)
         lst_closest_ags.append(closest_ag_id)
     
     return lst_closest_ags
+
 
 def haversine(lon1, lat1, lon2, lat2):
     '''
