@@ -29,7 +29,7 @@ def data_cleaning(agencies_df, properties_df):
     agencies_df = agencies_df[(agencies_df['FORECLOSURE'] == 'Yes' )] #&
                              # (agencies_df['SPECIALTY'] != any)
 
-    properties_df = properties_df.drop(['return_mail', 'zip_code', 'zip_4', 'unit_type',
+    properties_df = properties_df.drop(['return_mail', 'zip_4', 'unit_type',
         'unit_num', 'co_owner', 'agreement_agency', 'payment_agreement', 
         'mailing_address', 'mailing_city', 'mailing_state', 'mailing_zip',
         'years_in_bankruptcy', 'most_recent_bankrupt_year', 
