@@ -5,13 +5,13 @@ import pandas as pd
 from collect_info import data_cleaning, create_dfs
 
 def phi_map():
-	'''
-	Plot an interactive map for the city of Philadephia, with all the Housing
-	Counseling Agencies added.
+    '''
+    Plot an interactive map for the city of Philadephia, with all the Housing
+    Counseling Agencies added.
 
-	return: An interactive map
+    return: An interactive map
 
-	'''
+    '''
 
     latitude = 39.95233
     longitude = -75.16379
@@ -28,17 +28,17 @@ def phi_map():
 
 
 def find_location(key):
-	'''
-	Load Properties tax delinquiencies data, create an interactive map that we
-	can use to search any property's object ID, and locate the property on the
-	Philadephia interactive map.
+    '''
+    Load Properties tax delinquiencies data, create an interactive map that we
+    can use to search any property's object ID, and locate the property on the
+    Philadephia interactive map.
 
-	Input: Properties tax delinquiencies object ID.
+    Input: Properties tax delinquiencies object ID.
 
-	return: Interactive map with the searched housing property located
+    return: Interactive map with the searched housing property located
 
-	'''
-	
+    '''
+    
     agencies, tax = create_dfs()
     housing = folium.map.FeatureGroup()
     for index, row in tax.iterrows():
@@ -50,16 +50,16 @@ def find_location(key):
 
 
 def clustered_map(show_number):
-	'''
-	Cluster all the properties tax delinquiencies on the Philadephia interactive map,
-	with neibourhood zoom in, zoom out for details review.
+    '''
+    Cluster all the properties tax delinquiencies on the Philadephia interactive map,
+    with neibourhood zoom in, zoom out for details review.
 
-	Input: Number of Properties tax delinquiencies we want to see on the map.
+    Input: Number of Properties tax delinquiencies we want to see on the map.
 
-	return: Interactive map with clustered Properties tax delinquiencies distribution in blocks.
+    return: Interactive map with clustered Properties tax delinquiencies distribution in blocks.
 
-	'''
-	
+    '''
+    
     agencies, tax = create_dfs()
     limit = show_number
     tax = tax.iloc[0:limit, :].fillna(0)
