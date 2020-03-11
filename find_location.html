@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1d036963af1e43ca902819878a0c47a2 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_1d036963af1e43ca902819878a0c47a2" ></div>
+        
+</body>
+<script>    
+    
+            var map_1d036963af1e43ca902819878a0c47a2 = L.map(
+                "map_1d036963af1e43ca902819878a0c47a2",
+                {
+                    center: [39.95233, -75.16379],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_48ef3532c5fa46df9cb3b3db634dc0bf = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+            var marker_3bcde91d30924974a83bcab6bea68d55 = L.marker(
+                [39.99938748905001, -75.13160113217015],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_5bebe004c59541db9ff7de569a1fd35a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e7ba7d70180f498081dd6a20293be573 = $(`<div id="html_e7ba7d70180f498081dd6a20293be573" style="width: 100.0%; height: 100.0%;">AGENCY                      HACE: Central Office STREET_ADDRESS    167 W Allegheny Ave, Suite 200 ZIP_CODE                                   19140 PHONE_NUMBER                        215-426-8025 WEBSITE_URL               http://www.hacecdc.org FORECLOSURE                                  Yes PRE_PURCHASE                                 Yes SPECIALTY                                        Name: 0, dtype: object</div>`)[0];
+            popup_5bebe004c59541db9ff7de569a1fd35a.setContent(html_e7ba7d70180f498081dd6a20293be573);
+        
+
+        marker_3bcde91d30924974a83bcab6bea68d55.bindPopup(popup_5bebe004c59541db9ff7de569a1fd35a)
+        ;
+
+        
+    
+    
+            var marker_28914c284de945039f774465cdef2478 = L.marker(
+                [40.052264236950606, -75.18514934578334],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_ca0b809917174a00aa7db2059602b51c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0ac0a58b17644d9c9d6951ae4205fadf = $(`<div id="html_0ac0a58b17644d9c9d6951ae4205fadf" style="width: 100.0%; height: 100.0%;">AGENCY                              Mt. Airy USA STREET_ADDRESS    6703 Germantown Ave, Suite 200 ZIP_CODE                                   19119 PHONE_NUMBER                        215-844-6021 WEBSITE_URL             http://www.mtairyusa.org FORECLOSURE                                  Yes PRE_PURCHASE                                 Yes SPECIALTY                                        Name: 1, dtype: object</div>`)[0];
+            popup_ca0b809917174a00aa7db2059602b51c.setContent(html_0ac0a58b17644d9c9d6951ae4205fadf);
+        
+
+        marker_28914c284de945039f774465cdef2478.bindPopup(popup_ca0b809917174a00aa7db2059602b51c)
+        ;
+
+        
+    
+    
+            var marker_8dc8379497484c71b41a8ef736cfe20d = L.marker(
+                [39.92749046894337, -75.1790967856958],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_fd7e487a955347a1be3bed8d6ba37d99 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_85a0b7c3d7774093b51389b841581917 = $(`<div id="html_85a0b7c3d7774093b51389b841581917" style="width: 100.0%; height: 100.0%;">AGENCY            Diversified Community Services (Dixon House) STREET_ADDRESS                                  1920 S 20th St ZIP_CODE                                                 19145 PHONE_NUMBER                                      215-336-3511 WEBSITE_URL                            http://www.dcsphila.org FORECLOSURE                                                Yes PRE_PURCHASE                                               Yes SPECIALTY                                                      Name: 2, dtype: object</div>`)[0];
+            popup_fd7e487a955347a1be3bed8d6ba37d99.setContent(html_85a0b7c3d7774093b51389b841581917);
+        
+
+        marker_8dc8379497484c71b41a8ef736cfe20d.bindPopup(popup_fd7e487a955347a1be3bed8d6ba37d99)
+        ;
+
+        
+    
+    
+            var marker_9c97b2489b0a4fd7ba7a8bbd8f123925 = L.marker(
+                [39.99080158708632, -75.1227060777628],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_d777839e7a1d4a58923aff96becb34ee = L.popup({"maxWidth": "100%"});
+
+        
+            var html_609e63934b164838893a400d7aa37010 = $(`<div id="html_609e63934b164838893a400d7aa37010" style="width: 100.0%; height: 100.0%;">AGENCY               New Kensington CDC STREET_ADDRESS    2771 Ruth St, Suite 1 ZIP_CODE                          19134 PHONE_NUMBER               215-427-0350 WEBSITE_URL        http://www.nkcdc.org FORECLOSURE                         Yes PRE_PURCHASE                        Yes SPECIALTY                               Name: 3, dtype: object</div>`)[0];
+            popup_d777839e7a1d4a58923aff96becb34ee.setContent(html_609e63934b164838893a400d7aa37010);
+        
+
+        marker_9c97b2489b0a4fd7ba7a8bbd8f123925.bindPopup(popup_d777839e7a1d4a58923aff96becb34ee)
+        ;
+
+        
+    
+    
+            var marker_7ccffae7dd844de0ac568f40d28edf68 = L.marker(
+                [40.02692254131415, -75.1322532685995],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_e530e10c2e5b420f9cc8388d20758d54 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d566bd71f9d745d299f8083b05ed68eb = $(`<div id="html_d566bd71f9d745d299f8083b05ed68eb" style="width: 100.0%; height: 100.0%;">AGENCY            Greater Philadelphia Asian Social Service (GPASS) STREET_ADDRESS                                        4943 N 5th St ZIP_CODE                                                      19120 PHONE_NUMBER                                           215-456-1662 WEBSITE_URL                                  http://www.gpasspa.org FORECLOSURE                                                     Yes PRE_PURCHASE                                                    Yes SPECIALTY                                                           Name: 4, dtype: object</div>`)[0];
+            popup_e530e10c2e5b420f9cc8388d20758d54.setContent(html_d566bd71f9d745d299f8083b05ed68eb);
+        
+
+        marker_7ccffae7dd844de0ac568f40d28edf68.bindPopup(popup_e530e10c2e5b420f9cc8388d20758d54)
+        ;
+
+        
+    
+    
+            var marker_644cdb377d93429fa4bd3b8cbd5379e3 = L.marker(
+                [39.956706490999004, -75.20752428759738],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_d420f2ffc8db4534bf15e4b0eb273bb3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_95e59b2f2c5245d0a8a4f6a44af5d589 = $(`<div id="html_95e59b2f2c5245d0a8a4f6a44af5d589" style="width: 100.0%; height: 100.0%;">AGENCY            Intercultural Family Services STREET_ADDRESS                 4225 Chestnut St ZIP_CODE                                  19104 PHONE_NUMBER                       215-386-1298 WEBSITE_URL               http://www.ifsinc.org FORECLOSURE                                 Yes PRE_PURCHASE                                Yes SPECIALTY                                       Name: 5, dtype: object</div>`)[0];
+            popup_d420f2ffc8db4534bf15e4b0eb273bb3.setContent(html_95e59b2f2c5245d0a8a4f6a44af5d589);
+        
+
+        marker_644cdb377d93429fa4bd3b8cbd5379e3.bindPopup(popup_d420f2ffc8db4534bf15e4b0eb273bb3)
+        ;
+
+        
+    
+    
+            var marker_83093773acf84bbdb7d79793b0a900a6 = L.marker(
+                [39.98161981449741, -75.13551188818779],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_3cf0a46034d6432cb70e0e1153a11183 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_798636b1aaee449892a42e21e5a6bbf0 = $(`<div id="html_798636b1aaee449892a42e21e5a6bbf0" style="width: 100.0%; height: 100.0%;">AGENCY            Norris Square Community Alliance STREET_ADDRESS                      174 Diamond St ZIP_CODE                                     19122 PHONE_NUMBER                          215-426-8734 WEBSITE_URL              http://www.nscaonline.org FORECLOSURE                                    Yes PRE_PURCHASE                                   Yes SPECIALTY                                          Name: 6, dtype: object</div>`)[0];
+            popup_3cf0a46034d6432cb70e0e1153a11183.setContent(html_798636b1aaee449892a42e21e5a6bbf0);
+        
+
+        marker_83093773acf84bbdb7d79793b0a900a6.bindPopup(popup_3cf0a46034d6432cb70e0e1153a11183)
+        ;
+
+        
+    
+    
+            var marker_23ab0fc870c2489d9c7bbab0f033d09e = L.marker(
+                [40.053002621514665, -75.14128403847995],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_9f551e0cd9104106bebf3aea332a23f1 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3c4d73a3e8bb4dab876d9b3317ec150b = $(`<div id="html_3c4d73a3e8bb4dab876d9b3317ec150b" style="width: 100.0%; height: 100.0%;">AGENCY            Northwest Counseling Service STREET_ADDRESS                 6521 N Broad St ZIP_CODE                                 19126 PHONE_NUMBER                      215-324-7500 WEBSITE_URL             http://www.nwcsinc.org FORECLOSURE                                Yes PRE_PURCHASE                               Yes SPECIALTY                                      Name: 7, dtype: object</div>`)[0];
+            popup_9f551e0cd9104106bebf3aea332a23f1.setContent(html_3c4d73a3e8bb4dab876d9b3317ec150b);
+        
+
+        marker_23ab0fc870c2489d9c7bbab0f033d09e.bindPopup(popup_9f551e0cd9104106bebf3aea332a23f1)
+        ;
+
+        
+    
+    
+            var marker_6ead6cbad8274b2fb2400371ca57a6f4 = L.marker(
+                [39.992948809307606, -75.13542960292078],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_4ba6ff58e8a6474cbeaa4f20a49bac0a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6ab5f3548f3a45909167b922f7010c4a = $(`<div id="html_6ab5f3548f3a45909167b922f7010c4a" style="width: 100.0%; height: 100.0%;">AGENCY            Congreso de Latinos Unidos STREET_ADDRESS             216 W Somerset St ZIP_CODE                               19133 PHONE_NUMBER                   215-763-8870  WEBSITE_URL          http://www.congreso.net FORECLOSURE                              Yes PRE_PURCHASE                             Yes SPECIALTY                                    Name: 8, dtype: object</div>`)[0];
+            popup_4ba6ff58e8a6474cbeaa4f20a49bac0a.setContent(html_6ab5f3548f3a45909167b922f7010c4a);
+        
+
+        marker_6ead6cbad8274b2fb2400371ca57a6f4.bindPopup(popup_4ba6ff58e8a6474cbeaa4f20a49bac0a)
+        ;
+
+        
+    
+    
+            var marker_8e906ad8cada4eda847c4b17852cea28 = L.marker(
+                [39.98285117216349, -75.14442859664526],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_72f8aa15069c4027a8fa8e6b1754b782 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_9768cfff91ff411fb08665aeb1d7263f = $(`<div id="html_9768cfff91ff411fb08665aeb1d7263f" style="width: 100.0%; height: 100.0%;">AGENCY            Asociación Puertorriqueños en Marcha (APM) STREET_ADDRESS                                600 Diamond St ZIP_CODE                                               19122 PHONE_NUMBER                                    215-235-6070 WEBSITE_URL                          http://www.apmphila.org FORECLOSURE                                              Yes PRE_PURCHASE                                             Yes SPECIALTY                                                    Name: 9, dtype: object</div>`)[0];
+            popup_72f8aa15069c4027a8fa8e6b1754b782.setContent(html_9768cfff91ff411fb08665aeb1d7263f);
+        
+
+        marker_8e906ad8cada4eda847c4b17852cea28.bindPopup(popup_72f8aa15069c4027a8fa8e6b1754b782)
+        ;
+
+        
+    
+    
+            var marker_9bb1c1c0756947438be47355ecd35e24 = L.marker(
+                [40.015919925729534, -75.13411637956199],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_23d067d4bbf941259f70c3e6c65a2c4c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e13282b7bfcc40abb100d72c7bcfaf1b = $(`<div id="html_e13282b7bfcc40abb100d72c7bcfaf1b" style="width: 100.0%; height: 100.0%;">AGENCY                          Esperanza STREET_ADDRESS              4261 N 5th St ZIP_CODE                            19140 PHONE_NUMBER                 215-324-0746 WEBSITE_URL       http://www.esperanza.us FORECLOSURE                           Yes PRE_PURCHASE                          Yes SPECIALTY                                 Name: 10, dtype: object</div>`)[0];
+            popup_23d067d4bbf941259f70c3e6c65a2c4c.setContent(html_e13282b7bfcc40abb100d72c7bcfaf1b);
+        
+
+        marker_9bb1c1c0756947438be47355ecd35e24.bindPopup(popup_23d067d4bbf941259f70c3e6c65a2c4c)
+        ;
+
+        
+    
+    
+            var marker_e466e9d4446f4c4aa4560c06dc551d2b = L.marker(
+                [39.94954290777945, -75.16813225183422],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_d0b56df9031e4d92abc0d459ac74b6b0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_62a1b8191d7740edb90cc905d085c334 = $(`<div id="html_62a1b8191d7740edb90cc905d085c334" style="width: 100.0%; height: 100.0%;">AGENCY                              Clarifi STREET_ADDRESS    1635 Market St, Suite 510 ZIP_CODE                              19103 PHONE_NUMBER                   215-563-5665 WEBSITE_URL          http://www.clarifi.org FORECLOSURE                             Yes PRE_PURCHASE                            Yes SPECIALTY                                   Name: 11, dtype: object</div>`)[0];
+            popup_d0b56df9031e4d92abc0d459ac74b6b0.setContent(html_62a1b8191d7740edb90cc905d085c334);
+        
+
+        marker_e466e9d4446f4c4aa4560c06dc551d2b.bindPopup(popup_d0b56df9031e4d92abc0d459ac74b6b0)
+        ;
+
+        
+    
+    
+            var marker_2f682c8536b6456495f7e782c4eb56da = L.marker(
+                [40.01936590327319, -75.08100947364082],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_cd807fb5d7db4e039568e42439eff68b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2571b578ca6b4be1920d1e6dacb090ed = $(`<div id="html_2571b578ca6b4be1920d1e6dacb090ed" style="width: 100.0%; height: 100.0%;">AGENCY            HACE: Frankford Office STREET_ADDRESS        4907 Frankford Ave ZIP_CODE                           19124 PHONE_NUMBER                215-437-7867 WEBSITE_URL       http://www.hacecdc.org FORECLOSURE                          Yes PRE_PURCHASE                         Yes SPECIALTY                                Name: 12, dtype: object</div>`)[0];
+            popup_cd807fb5d7db4e039568e42439eff68b.setContent(html_2571b578ca6b4be1920d1e6dacb090ed);
+        
+
+        marker_2f682c8536b6456495f7e782c4eb56da.bindPopup(popup_cd807fb5d7db4e039568e42439eff68b)
+        ;
+
+        
+    
+    
+            var marker_36c6224725174889a74e818acc62d2d7 = L.marker(
+                [39.925673355372574, -75.23109690615729],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_a9cf8d2c96eb4dbc99f0b83d6158fa70 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3b68aa51addc4e849b7ed6c5fd6beb80 = $(`<div id="html_3b68aa51addc4e849b7ed6c5fd6beb80" style="width: 100.0%; height: 100.0%;">AGENCY                          Southwest CDC STREET_ADDRESS              6328 Paschall Ave ZIP_CODE                                19142 PHONE_NUMBER                     215-729-0800 WEBSITE_URL       http://www.southwestcdc.org FORECLOSURE                               Yes PRE_PURCHASE                              Yes SPECIALTY                                     Name: 13, dtype: object</div>`)[0];
+            popup_a9cf8d2c96eb4dbc99f0b83d6158fa70.setContent(html_3b68aa51addc4e849b7ed6c5fd6beb80);
+        
+
+        marker_36c6224725174889a74e818acc62d2d7.bindPopup(popup_a9cf8d2c96eb4dbc99f0b83d6158fa70)
+        ;
+
+        
+    
+    
+            var marker_29f99bcab14049c9a7add3d43d99ae97 = L.marker(
+                [39.954977932814295, -75.1635879139421],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_0aba7cf47f0f4d998a5dcdedebdac1d7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1b3d0ba938914308af92631fa4121781 = $(`<div id="html_1b3d0ba938914308af92631fa4121781" style="width: 100.0%; height: 100.0%;">AGENCY            Unemployment Information Center STREET_ADDRESS         112 N Broad St, 11th Floor ZIP_CODE                                    19102 PHONE_NUMBER                         215-557-0822 WEBSITE_URL                http://www.philaup.org FORECLOSURE                                   Yes PRE_PURCHASE                                  Yes SPECIALTY                                         Name: 14, dtype: object</div>`)[0];
+            popup_0aba7cf47f0f4d998a5dcdedebdac1d7.setContent(html_1b3d0ba938914308af92631fa4121781);
+        
+
+        marker_29f99bcab14049c9a7add3d43d99ae97.bindPopup(popup_0aba7cf47f0f4d998a5dcdedebdac1d7)
+        ;
+
+        
+    
+    
+            var marker_7482cd7a0fa841ce9cfaf4564bc52f17 = L.marker(
+                [39.973951932096256, -75.22709102909478],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_b3674ee851a54514967185e56848c8b8 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c4f7e31c133c4debb7b175c1c9eb696a = $(`<div id="html_c4f7e31c133c4debb7b175c1c9eb696a" style="width: 100.0%; height: 100.0%;">AGENCY            Philadelphia Council for Community Advancement STREET_ADDRESS                                  5218 W Master St ZIP_CODE                                                   19131 PHONE_NUMBER                                        215-567-7803 WEBSITE_URL                           http://www.pccahousing.org FORECLOSURE                                                  Yes PRE_PURCHASE                                                 Yes SPECIALTY                                                        Name: 15, dtype: object</div>`)[0];
+            popup_b3674ee851a54514967185e56848c8b8.setContent(html_c4f7e31c133c4debb7b175c1c9eb696a);
+        
+
+        marker_7482cd7a0fa841ce9cfaf4564bc52f17.bindPopup(popup_b3674ee851a54514967185e56848c8b8)
+        ;
+
+        
+    
+    
+            var marker_22e5b91736cd40d8bd6dcbc87b648812 = L.marker(
+                [39.923265656248454, -75.15949073042958],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_901de37692194217890cba02e70e6285 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e5df2458224b4df794eddbb7316a7c36 = $(`<div id="html_e5df2458224b4df794eddbb7316a7c36" style="width: 100.0%; height: 100.0%;">AGENCY            United Communities Southeast Philadelphia STREET_ADDRESS                                2029 S 8th St ZIP_CODE                                              19148 PHONE_NUMBER                                   215-468-1645 WEBSITE_URL                            http://www.ucsep.org FORECLOSURE                                             Yes PRE_PURCHASE                                            Yes SPECIALTY                                                   Name: 16, dtype: object</div>`)[0];
+            popup_901de37692194217890cba02e70e6285.setContent(html_e5df2458224b4df794eddbb7316a7c36);
+        
+
+        marker_22e5b91736cd40d8bd6dcbc87b648812.bindPopup(popup_901de37692194217890cba02e70e6285)
+        ;
+
+        
+    
+    
+            var marker_67eb0790dac94c4eade5057a5032c04e = L.marker(
+                [39.950227859142736, -75.16370024219455],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_a7449dd0c97946d7bac7938a4c2ba4b0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_43e9b18bf13d448584d7738e600df848 = $(`<div id="html_43e9b18bf13d448584d7738e600df848" style="width: 100.0%; height: 100.0%;">AGENCY               Urban League of Philadelphia STREET_ADDRESS          121 S Broad St, 9th Floor ZIP_CODE                                    19107 PHONE_NUMBER                         215-985-3220 WEBSITE_URL       http://www.urbanleaguephila.org FORECLOSURE                                   Yes PRE_PURCHASE                                  Yes SPECIALTY                                         Name: 17, dtype: object</div>`)[0];
+            popup_a7449dd0c97946d7bac7938a4c2ba4b0.setContent(html_43e9b18bf13d448584d7738e600df848);
+        
+
+        marker_67eb0790dac94c4eade5057a5032c04e.bindPopup(popup_a7449dd0c97946d7bac7938a4c2ba4b0)
+        ;
+
+        
+    
+    
+            var marker_53a2747395ce46bbadf47c837e3669ae = L.marker(
+                [40.08111024940438, -75.17156425367669],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_78f8a9a8ad5447338db77264cfef433f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_682817a9f96a455ba1b18e3ec5260feb = $(`<div id="html_682817a9f96a455ba1b18e3ec5260feb" style="width: 100.0%; height: 100.0%;">AGENCY                        West Oak Lane CDC STREET_ADDRESS               1624 Wadsworth Ave ZIP_CODE                                  19150 PHONE_NUMBER                       215-224-8339 WEBSITE_URL       http://www.westoaklanecdc.org FORECLOSURE                                 Yes PRE_PURCHASE                                Yes SPECIALTY                                       Name: 18, dtype: object</div>`)[0];
+            popup_78f8a9a8ad5447338db77264cfef433f.setContent(html_682817a9f96a455ba1b18e3ec5260feb);
+        
+
+        marker_53a2747395ce46bbadf47c837e3669ae.bindPopup(popup_78f8a9a8ad5447338db77264cfef433f)
+        ;
+
+        
+    
+    
+            var marker_8e80028cbc6d42d38210bf42b799293c = L.marker(
+                [39.96952117594743, -75.1603660781139],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_1ae5f721c4304f6a90f8237d1de6bd36 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ea753f879d164a699e245849ee9e6002 = $(`<div id="html_ea753f879d164a699e245849ee9e6002" style="width: 100.0%; height: 100.0%;">AGENCY            Affordable Housing Centers of Pennsylvania STREET_ADDRESS                                846 N Broad St ZIP_CODE                                               19130 PHONE_NUMBER                                    215-765-1221 WEBSITE_URL                            http://www.ahcopa.org FORECLOSURE                                              Yes PRE_PURCHASE                                             Yes SPECIALTY                                                    Name: 19, dtype: object</div>`)[0];
+            popup_1ae5f721c4304f6a90f8237d1de6bd36.setContent(html_ea753f879d164a699e245849ee9e6002);
+        
+
+        marker_8e80028cbc6d42d38210bf42b799293c.bindPopup(popup_1ae5f721c4304f6a90f8237d1de6bd36)
+        ;
+
+        
+    
+    
+            var marker_aaf203248deb40aba01087ffe8dff5e5 = L.marker(
+                [40.0357316685053, -75.17668194569045],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_b6ddbbece6d34359bae33fa8bb6030ce = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e46ac69a9a9e48f0990dd253cacbaf70 = $(`<div id="html_e46ac69a9a9e48f0990dd253cacbaf70" style="width: 100.0%; height: 100.0%;">AGENCY                             Center in the Park STREET_ADDRESS                    5818 Germantown Ave ZIP_CODE                                        19144 PHONE_NUMBER                             215-848-7722 WEBSITE_URL       http://www.centerintheparkphila.org FORECLOSURE                                       Yes PRE_PURCHASE                                      Yes SPECIALTY                                      SENIOR Name: 20, dtype: object</div>`)[0];
+            popup_b6ddbbece6d34359bae33fa8bb6030ce.setContent(html_e46ac69a9a9e48f0990dd253cacbaf70);
+        
+
+        marker_aaf203248deb40aba01087ffe8dff5e5.bindPopup(popup_b6ddbbece6d34359bae33fa8bb6030ce)
+        ;
+
+        
+    
+    
+            var marker_5b2d94a15b93442db627536cfcfc5620 = L.marker(
+                [39.95379342382145, -75.15329579357723],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_18888582d6fd47da92fe8ef79ae648d2 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_cd66ab5761564260a05301c01c8b47f5 = $(`<div id="html_cd66ab5761564260a05301c01c8b47f5" style="width: 100.0%; height: 100.0%;">AGENCY                          Liberty Resources STREET_ADDRESS            112 N 8th St, Suite 600 ZIP_CODE                                    19107 PHONE_NUMBER                         215-634-2000 WEBSITE_URL       http://www.libertyresources.org FORECLOSURE                                   Yes PRE_PURCHASE                                   No SPECIALTY                              DISABILITY Name: 21, dtype: object</div>`)[0];
+            popup_18888582d6fd47da92fe8ef79ae648d2.setContent(html_cd66ab5761564260a05301c01c8b47f5);
+        
+
+        marker_5b2d94a15b93442db627536cfcfc5620.bindPopup(popup_18888582d6fd47da92fe8ef79ae648d2)
+        ;
+
+        
+    
+    
+            var marker_9390e2765a8547818c9949d0f1aa7b31 = L.marker(
+                [40.02754600004209, -75.21398515986927],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_e0dd58d30e9f4b8d8eebbf8e5288e26e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_92456d4d226744a28bc4f351b57d3a24 = $(`<div id="html_92456d4d226744a28bc4f351b57d3a24" style="width: 100.0%; height: 100.0%;">AGENCY            Intercommunity Action (Senior Center) STREET_ADDRESS                            403 Rector St ZIP_CODE                                          19128 PHONE_NUMBER                               215-487-1750 WEBSITE_URL         http://www.intercommunityaction.org FORECLOSURE                                         Yes PRE_PURCHASE                                         No SPECIALTY                                        SENIOR Name: 22, dtype: object</div>`)[0];
+            popup_e0dd58d30e9f4b8d8eebbf8e5288e26e.setContent(html_92456d4d226744a28bc4f351b57d3a24);
+        
+
+        marker_9390e2765a8547818c9949d0f1aa7b31.bindPopup(popup_e0dd58d30e9f4b8d8eebbf8e5288e26e)
+        ;
+
+        
+    
+    
+            var marker_15a324274f4e4ba083bcf973dc75661f = L.marker(
+                [39.94419422231678, -75.16494540792898],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_559f22c352844df6b9b7afed43f145f7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c097a4e8431e43e9a77233a545250ba6 = $(`<div id="html_c097a4e8431e43e9a77233a545250ba6" style="width: 100.0%; height: 100.0%;">AGENCY                  Philadelphia Senior Center STREET_ADDRESS                      509 S Broad St ZIP_CODE                                     19147 PHONE_NUMBER                          215-546-5879 WEBSITE_URL       http://www.philaseniorcenter.org FORECLOSURE                                    Yes PRE_PURCHASE                                    No SPECIALTY                                   SENIOR Name: 23, dtype: object</div>`)[0];
+            popup_559f22c352844df6b9b7afed43f145f7.setContent(html_c097a4e8431e43e9a77233a545250ba6);
+        
+
+        marker_15a324274f4e4ba083bcf973dc75661f.bindPopup(popup_559f22c352844df6b9b7afed43f145f7)
+        ;
+
+        
+    
+    
+            var marker_112e1e1b3bdc49e3a2e9ef4982d9938d = L.marker(
+                [39.950280958201034, -75.16433403133145],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_7f8a1d7796b64f1cb6f15865add67291 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ddad1da58fc94a40bc5e4ce2f0f5de40 = $(`<div id="html_ddad1da58fc94a40bc5e4ce2f0f5de40" style="width: 100.0%; height: 100.0%;">AGENCY            Tenant Union Representative Network STREET_ADDRESS              100 S Broad St, Suite 800 ZIP_CODE                                        19110 PHONE_NUMBER                             215-940-3900 WEBSITE_URL                      http://www.rturn.net FORECLOSURE                                        No PRE_PURCHASE                                       No SPECIALTY                                      RENTER Name: 24, dtype: object</div>`)[0];
+            popup_7f8a1d7796b64f1cb6f15865add67291.setContent(html_ddad1da58fc94a40bc5e4ce2f0f5de40);
+        
+
+        marker_112e1e1b3bdc49e3a2e9ef4982d9938d.bindPopup(popup_7f8a1d7796b64f1cb6f15865add67291)
+        ;
+
+        
+    
+    
+            var marker_fdbfbc1354624176a019c5a7acd67f52 = L.marker(
+                [40.02787224694022, -75.05874080034742],
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+        var popup_1106c91d9c7d4719bf3aae7c83dd48d4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_298ad40cddb84380b7df152b0be4f9dc = $(`<div id="html_298ad40cddb84380b7df152b0be4f9dc" style="width: 100.0%; height: 100.0%;">AGENCY            Affordable Housing Centers of PA: Northeast Of... STREET_ADDRESS                           6325 Frankford Ave, Unit D ZIP_CODE                                                      19135 PHONE_NUMBER                                           215-624-0221 WEBSITE_URL                                   http://www.ahcopa.org FORECLOSURE                                                     Yes PRE_PURCHASE                                                    Yes SPECIALTY                                                           Name: 25, dtype: object</div>`)[0];
+            popup_1106c91d9c7d4719bf3aae7c83dd48d4.setContent(html_298ad40cddb84380b7df152b0be4f9dc);
+        
+
+        marker_fdbfbc1354624176a019c5a7acd67f52.bindPopup(popup_1106c91d9c7d4719bf3aae7c83dd48d4)
+        ;
+
+        
+    
+    
+            var feature_group_8a604dd0357044b8a1dc72cf10ef0a1a = L.featureGroup(
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+            var feature_group_32fa323bc6014183a071c5f7478c9f55 = L.featureGroup(
+                {}
+            ).addTo(map_1d036963af1e43ca902819878a0c47a2);
+        
+    
+            var circle_marker_8d30feca902d495dac139883d62bad38 = L.circleMarker(
+                [39.96048596, -75.20355078],
+                {"bubblingMouseEvents": true, "color": "yellow", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(feature_group_32fa323bc6014183a071c5f7478c9f55);
+        
+    
+        var popup_b7b9f7a727784b9e80ceb968eaa98125 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_32259a1b09994e38921a104b3d2b9350 = $(`<div id="html_32259a1b09994e38921a104b3d2b9350" style="width: 100.0%; height: 100.0%;">4488.7</div>`)[0];
+            popup_b7b9f7a727784b9e80ceb968eaa98125.setContent(html_32259a1b09994e38921a104b3d2b9350);
+        
+
+        circle_marker_8d30feca902d495dac139883d62bad38.bindPopup(popup_b7b9f7a727784b9e80ceb968eaa98125)
+        ;
+
+        
+    
+</script>
