@@ -4,7 +4,7 @@ import collect_info
 import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
-import datetime 
+import datetime as dt
 
 
 def make_total_due_pie(properties_df):
@@ -30,6 +30,7 @@ def make_total_due_pie(properties_df):
     title = "{0:.1%} of delinquent residential properties owe {1}".\
             format(total_due_df.iloc[0][0]/sum(total_due_df['numbers']),
                     list(total_due_df.index)[0])
+    sns.set()
     sns.set_palette("hls", 7)
     plt.pie(total_due_df['numbers'], counterclock=False, startangle=90,
             pctdistance=0.65, wedgeprops={'linewidth': 1, 'edgecolor':"white"},
@@ -46,7 +47,8 @@ def make_agency_bar_chart(closest_agency_table):
     Make a histrgram of the total due and save it as png file.
     
     Input:
-         closest_agency_table(data frame): the output of make_closest_agency_table, table which shows data according to closest agencies.
+         closest_agency_table(data frame): the output of make_closest_agency_table, 
+                                           which shows data according to closest agencies.
     Output:
          none. create a bar chart, save it ans show it.
     '''
@@ -56,12 +58,15 @@ def make_agency_bar_chart(closest_agency_table):
     total_due_mean = closest_agency_table['total_due_mean']
     number_of_properties = closest_agency_table['number_of_properties']
 
+    sns.set()
     fig = plt.figure(figsize=(13,5))
     ax1 = fig.add_subplot(1, 1, 1)
-    ax1.bar(x_posi, total_due_mean, width=0.4, color='r', alpha=0.5, label='total due mean')
+    ax1.bar(x_posi, total_due_mean, width=0.4, color='r', 
+    	    alpha=0.5, label='total due mean')
 
     ax2 = ax1.twinx()
-    ax2.bar(x_posi + 0.4, number_of_properties, width=0.4, color='b', alpha=0.5,label='number of properties')
+    ax2.bar(x_posi + 0.4, number_of_properties, width=0.4,
+    	    color='b', alpha=0.5,label='number of properties')
 
     ax1.set_xticks(x_posi + 0.2)
     ax1.set_xticklabels(x)
@@ -70,18 +75,39 @@ def make_agency_bar_chart(closest_agency_table):
     h2, l2 = ax2.get_legend_handles_labels()
     ax1.legend(h1 + h2, l1 + l2, frameon=False, fontsize=9)
 
-    ax1.set_title("Total due mean and the number of delinquent properties at each agency", fontsize=16)
+    ax1.set_title("Total due mean and the number of \
+    	           delinquent properties at each agency", fontsize=16)
     ax1.set_ylabel("Total due mean($)")
     ax2.set_ylabel("The number of delinquent properties")
 
-    plt.savefig('total_due_mean_and_number_of_properties.png', bbox_inches='tight')
+    plt.savefig('total_due_mean_and_number_of_properties.png', 
+    	         bbox_inches='tight')
     plt.show()
 
 
-def make_scatter_plot(properties_df):
-    payment_date_df = pd.to_date(properties_df['most_recent_payment_date'])
-    d_today = datetime.date.today() 
-    day_from_last_payment = map(lambda x: d_today - x, payment_date_df)
+def make_hist_day_since_last_payment(properties_df):
+	# convert str into datetime about most_recent_payment_date
+    payment_date_df = list(map(lambda x: dt.datetime.strptime(x, '%Y-%m-%d'),
+                                         properties_df['most_recent_payment_date']))
+    # convert datetime into day
+    payment_date_df = list(map(lambda x: dt.datetime.date(x), payment_date_df))
+
+    # create today
+    today = dt.date.today() 
+
+    # subtract most_recent_payment_date from today
+    day_from_last_payment = list(map(lambda x: (today - x).days, payment_date_df))
+
+    # make a histgram of day_from_last_payment
+    ## working on it##
+    sns.set()
+    sns.set_style('whitegrid')
+
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.hist(day_from_last_payment)
+    ax.set_xlabel('days since most recent payment date')
+    plt.show()
 
 # Accessary functions below
 def determine_range(number):
