@@ -16,60 +16,60 @@ def create_dfs():
     Outputs
         agencies_df and properties_df(Pandas data frame)
     '''
-    agencies_df = pd.read_csv(agencies_url)
-    properties_df = pd.read_csv(properties_url)
+    agency_df = pd.read_csv(agencies_url)
+    prop_df = pd.read_csv(properties_url)
 
-    return agencies_df, properties_df
+    return agency_df, prop_df
 
-def data_cleaning(agencies_df, properties_df):
+def data_cleaning(agency_df, prop_df):
     '''
     Clean dataframe.
 
     '''
-    agencies_df = agencies_df[(agencies_df['FORECLOSURE'] == 'Yes' )] #&
+    agency_df = agency_df[(agency_df['FORECLOSURE'] == 'Yes' )] #&
                              # (agencies_df['SPECIALTY'] != any)
 
-    properties_df = properties_df.drop(['return_mail', 'zip_4', 'unit_type',
+    prop_df = prop_df.drop(['return_mail', 'zip_4', 'unit_type',
         'unit_num', 'co_owner', 'agreement_agency', 'payment_agreement', 
         'mailing_address', 'mailing_city', 'mailing_state', 'mailing_zip',
         'years_in_bankruptcy', 'most_recent_bankrupt_year', 
         'oldest_bankrupt_year', 'principal_sum_bankrupt_years',
         'total_amount_bankrupt_years'], axis=1)
 
-    properties_df = properties_df.dropna(how='any')
-    properties_df = properties_df[properties_df['building_category'] == 'residential']
+    prop_df = prop_df.dropna(how='any')
+    prop_df = prop_df[prop_df['building_category'] == 'residential']
 
-    return agencies_df, properties_df
+    return agency_df, prop_df
 
-def append_column_closet_agency(agencies_df, properties_df):
+def append_column_closet_agency(agency_df, prop_df):
     '''
     Apepend a column which indicate the closest agency from each property.
 
     Inputs
-        agencies_df (pandas framework): agencies dataset
-        properties_df (pandas framework):properties dataset
+        agency_df (pandas framework): agencies dataset
+        prop_df (pandas framework):properties dataset
     Output
-        properties_df with a column of closest agencies.
+        prop_df with a column of closest agencies.
     '''
-    lst_closest_ags = get_lst_closest_agencies(agencies_df, properties_df)
-    properties_df['closest agency'] = lst_closest_ags
+    lst_closest_ags = get_lst_closest_agencies(agency_df, prop_df)
+    prop_df['closest agency'] = lst_closest_ags
 
-    return properties_df
+    return prop_df
 
 
-def search_closest_agency(property_id, agencies_df, properties_df):
+def search_closest_agency(property_id, agency_df, prop_df):
     '''
     Given Object_id of a property, find out the closest agency ID
     and the distance(meters) to the agency.
 
     Inputs
         property_id (integer): objectid of a property
-        agencies_df (pandas framework): agencies dataset
-        properties_df (pandas framework):properties dataset
+        agency_df (pandas framework): agencies dataset
+        prop_df (pandas framework):properties dataset
     '''
 
-    properties_df = properties_df[properties_df['objectid'] == property_id]
-    prop_lon, prop_lat = tuple(properties_df[['lon', 'lat']].values.tolist()[0])
+    prop_df = prop_df[prop_df['objectid'] == property_id]
+    prop_lon, prop_lat = tuple(prop_df[['lon', 'lat']].values.tolist()[0])
 
     min_distance = 999999.99
     closest_ag_id = 0
@@ -77,37 +77,37 @@ def search_closest_agency(property_id, agencies_df, properties_df):
     closest_ag_lat = .0
 
     # Compute the closest agency and the distance to the agency
-    for agencies_row in agencies_df.itertuples(index=False, name=None):
-        dist_squared = abs(prop_lon - agencies_row[0])**2 + abs(prop_lat - agencies_row[1])**2
+    for agency_row in agency_df.itertuples(index=False, name=None):
+        dist_squared = abs(prop_lon - agency_row[0])**2 + abs(prop_lat - agency_row[1])**2
         if dist_squared < min_distance:
             min_distance = dist_squared
-            closest_ag_id = agencies_row[2]
-            closest_ag_lon = agencies_row[0]
-            closest_ag_lat = agencies_row[1]
+            closest_ag_id = agency_row[2]
+            closest_ag_lon = agency_row[0]
+            closest_ag_lat = agency_row[1]
     
     # Convert the minimum distance into ft.
-    ft = haversine(prop_lon, prop_lat, closest_ag_lon, closest_ag_lat)
-    return closest_ag_id, ft
+    mile = haversine(prop_lon, prop_lat, closest_ag_lon, closest_ag_lat)
+    return closest_ag_id, mile
 
 
-def get_lst_closest_agencies(agencies_df, properties_df):
+def get_lst_closest_agencies(agency_df, prop_df):
     '''
-    Given Object_id of an agency, compute list of the closest agency from each agency.
+    Given agency dataframe, prop dataframe, compute list of the closest agency from every property.
     '''
     
     lst_closest_ags = []
-    for prop_row in properties_df.itertuples(index=False, name=None):
+    for prop_row in prop_df.itertuples(index=False, name=None):
         min_distance = 9999.99
         closest_ag_id = 0
         closest_ag_lon = .0
         closest_ag_lat = .0
-        for agencies_row in agencies_df.itertuples(index=False, name=None):
-            dist_squared = abs(prop_row[-1] - agencies_row[0])**2 + abs(prop_row[-2] - agencies_row[1])**2
+        for agency_row in agency_df.itertuples(index=False, name=None):
+            dist_squared = abs(prop_row[-1] - agency_row[0])**2 + abs(prop_row[-2] - agency_row[1])**2
             if dist_squared < min_distance:
                 min_distance = dist_squared
-                closest_ag_id = agencies_row[2]
-               #closest_ag_lon = agencies_row[0]
-               #closest_ag_lat = agencies_row[1]
+                closest_ag_id = agency_row[2]
+               #closest_ag_lon = agency_row[0]
+               #closest_ag_lat = agency_row[1]
 
       # ft = haversine(prop_lon, prop_lat, closest_ag_lon, closest_ag_lat)
         lst_closest_ags.append(closest_ag_id)
@@ -133,6 +133,6 @@ def haversine(lon1, lat1, lon2, lat2):
 
     # 6367 km is the radius of the Earth
     km = 6367 * c
-    m = km * 1000
-    ft = m * 3.2808
-    return ft
+    meter = km * 1000
+    mile = meter / 1609.344 
+    return round(mile, 3)
