@@ -7,10 +7,11 @@ from folium.plugins import MarkerCluster, HeatMap
 import pandas as pd
 from collect_info import create_dfs, data_cleaning, search_closest_agency
 
-'''
-FYI (for testing)
-agency_df, prop_df = data_cleaning(create_dfs())
-'''
+
+#FYI (for testing)
+ag, prop = create_dfs()
+agency_df, prop_df = data_cleaning(ag, prop)
+
 
 
 def all_agencies_map(agency_df):
@@ -130,14 +131,14 @@ def heat_map(show_number, agency_df, prop_df):
     return philly_map
 
 
-'''
-FYI (for testing)
 
-phi_map(agency_df, prop_df).save("phi_map.html")
+#FYI (for testing)
+
+all_agencies_map(agency_df).save("phi_map.html")
 
 find_location(997161, agency_df, prop_df).save("find_location.html")
 
 clustered_map(10000, agency_df, prop_df).save("clustered_map.html")
 
 heat_map(5000, agency_df, prop_df).save("heat_map.html")
-'''
+
