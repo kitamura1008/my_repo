@@ -4,13 +4,14 @@ import collect_info
 import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
+import datetime 
 
 
 def make_total_due_pie(properties_df):
     '''
     Make a histrgram of the total due and save it as png file.
     
-    input:
+    Input:
          agencies_df: agencies_df, which is appended the closest agency
     '''
     # map ranges to the total_due column of properties_df
@@ -40,9 +41,52 @@ def make_total_due_pie(properties_df):
     plt.show()
 
 
+def make_agency_bar_chart(closest_agency_table):
+    '''
+    Make a histrgram of the total due and save it as png file.
+    
+    Input:
+         closest_agency_table(data frame): the output of make_closest_agency_table, table which shows data according to closest agencies.
+    Output:
+         none. create a bar chart, save it ans show it.
+    '''
+    x = np.array(closest_agency_table.index)
+    x_posi = np.arange(len(x))
+
+    total_due_mean = closest_agency_table['total_due_mean']
+    number_of_properties = closest_agency_table['number_of_properties']
+
+    fig = plt.figure(figsize=(13,5))
+    ax1 = fig.add_subplot(1, 1, 1)
+    ax1.bar(x_posi, total_due_mean, width=0.4, color='r', alpha=0.5, label='total due mean')
+
+    ax2 = ax1.twinx()
+    ax2.bar(x_posi + 0.4, number_of_properties, width=0.4, color='b', alpha=0.5,label='number of properties')
+
+    ax1.set_xticks(x_posi + 0.2)
+    ax1.set_xticklabels(x)
+
+    h1, l1 = ax1.get_legend_handles_labels()
+    h2, l2 = ax2.get_legend_handles_labels()
+    ax1.legend(h1 + h2, l1 + l2, frameon=False, fontsize=9)
+
+    ax1.set_title("Total due mean and the number of delinquent properties at each agency", fontsize=16)
+    ax1.set_ylabel("Total due mean($)")
+    ax2.set_ylabel("The number of delinquent properties")
+
+    plt.savefig('total_due_mean_and_number_of_properties.png', bbox_inches='tight')
+    plt.show()
+
+
+def make_scatter_plot(properties_df):
+    payment_date_df = pd.to_date(properties_df['most_recent_payment_date'])
+    d_today = datetime.date.today() 
+    day_from_last_payment = map(lambda x: d_today - x, payment_date_df)
+
+# Accessary functions below
 def determine_range(number):
     '''
-    Accessary function for make_total_due_hist.
+    Accessary function for make_total_due_pie.
     Determine the range of total due at each property.  
 
     Input:
@@ -70,55 +114,32 @@ def determine_range(number):
 
 def make_closest_agency_table(properties_df):
     '''
+    Accessary function for make_agency_bar_chart.
     Make a table which shows statstical data according to closest agencies.
 
-    input:
+    Input:
          agencies_df: agencies_df, which is appended the closest agency
     Output:
         closest_agency_table (data frame): the table which shows data according to closest agencies.
     '''
-    prop_groupby = properties_df.groupby('closest agency')
+    # set a processing
     processing = {'objectid': len,'total_assessment': np.mean, 
                   'taxable_assessment': np.mean,
                   'total_due': np.mean, 'most_recent_payment_date': np.min}
+    
+    # do groupby and apply the processing
+    prop_groupby = properties_df.groupby('closest agency')
     closest_agency_table = prop_groupby.agg(processing)
     closest_agency_table = closest_agency_table.ix[:,['objectid', 'total_assessment',
                                                       'taxable_assessment',
                                                       'total_due', 'most_recent_payment_date']]
+    
+    # rename columns' name
     rename = {'taxable_assessment': 'taxable_assessment_mean', 
               'total_due': 'total_due_mean',
               'total_assessment': 'total_assessment_mean',
               'objectid': 'number_of_properties',
               'most_recent_payment_date': 'oldest_most_recent_payment_date'}
     closest_agency_table = closest_agency_table.rename(columns=rename)
-    return closest_agency_table
-
-
-def make_agency_bar_chart(closest_agency_table):
-    x = np.array(closest_agency_table.index)
-    x_posi = np.arange(len(x))
-
-    total_due_mean = closest_agency_table['total_due_mean']
-    number_of_properties = closest_agency_table['number_of_properties']
-
-    fig = plt.figure(figsize=(13,5))
-    ax1 = fig.add_subplot(1, 1, 1)
-    ax1.bar(x_posi, total_due_mean, width=0.4, color='r', alpha=0.5, label='total due mean')
-
-    ax2 = ax1.twinx()
-    ax2.bar(x_posi + 0.4, number_of_properties, width=0.4, color='b', alpha=0.5,label='number of properties')
-
-    ax1.set_xticks(x_posi + 0.2)
-    ax1.set_xticklabels(x)
-
-    h1, l1 = ax1.get_legend_handles_labels()
-    h2, l2 = ax2.get_legend_handles_labels()
-    ax1.legend(h1 + h2, l1 + l2, frameon=False, fontsize=9)
-
-    ax1.set_title("Total due mean and the number of delinquent properties at each agency", fontsize=16)
-    ax1.set_ylabel("Total due mean($)")
-    ax2.set_ylabel("The number of delinquent properties")
-
-    plt.savefig('total_due_mean_and_number_of_properties.png', bbox_inches='tight')
-    plt.show()
     
+    return closest_agency_table
