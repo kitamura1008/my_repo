@@ -8,13 +8,7 @@ import pandas as pd
 from collect_info import create_dfs, data_cleaning, search_closest_agency
 
 
-#FYI (for testing)
-ag, prop = create_dfs()
-agency_df, prop_df = data_cleaning(ag, prop)
-
-
-
-def all_agencies_map(agency_df):
+def all_agencies_map(path, agency_df, show=False):
     '''
     Generate an interactive map for Philadephia city,
     with housing counceling agenies added.
@@ -32,7 +26,11 @@ def all_agencies_map(agency_df):
         folium.Marker([row.Y, row.X], popup=row.AGENCY).add_to(philly_map)
     philly_map.add_child(housing)
     
-    return philly_map
+    if show:
+        return philly_map
+
+    philly_map.save(path+'/agency_plot.html')
+
 
 
 def find_location(key, agency_df, prop_df):
@@ -79,7 +77,7 @@ def find_location(key, agency_df, prop_df):
     return philly_map.add_child(housing)
 
 
-def clustered_map(show_number, agency_df, prop_df):
+def clustered_map(path, agency_df, prop_df):
     '''
     Build clustered real estate tax delinquencies properties, and plot it on the interactive map.
     
@@ -89,11 +87,8 @@ def clustered_map(show_number, agency_df, prop_df):
     we can click on it to interactively explore to further layers for children's details.
     '''
 
-    # Limit the number of prop to be shown in a map
-    prop_df = prop_df.head(show_number)
-
     # Create a map with all agencies
-    philly_map = all_agencies_map(agency_df)
+    philly_map = all_agencies_map(path, agency_df, show=True)
 
     # Plot props and show clusters
     cluster = MarkerCluster().add_to(philly_map)
@@ -101,10 +96,11 @@ def clustered_map(show_number, agency_df, prop_df):
         cluster.add_child(folium.CircleMarker([row.lat, row.lon], popup=row.total_due))
     housing = folium.map.FeatureGroup()
     
-    return philly_map.add_child(housing)
+    clustered = philly_map.add_child(housing)
+    clustered.save(path+'/property_cluster.html')
 
 
-def heat_map(show_number, agency_df, prop_df):
+def heat_map(path, agency_df, prop_df):
     '''
     Build heat map for clustered real estate tax delinquencies properties, 
     and plot it on the interactive map.
@@ -115,9 +111,6 @@ def heat_map(show_number, agency_df, prop_df):
     return: An interactive map with delinquencies heat map,
     we can zoom in and zoom out to see different levels of heat maps.
     '''
-    
-    # Limit the number of prop to be shown in a map
-    prop_df = prop_df.head(show_number)
 
     # Create a map with all agencies
     philly_map = all_agencies_map(agency_df)
@@ -128,12 +121,12 @@ def heat_map(show_number, agency_df, prop_df):
         heat_data.append([row.lat, row.lon])
     HeatMap(heat_data).add_to(philly_map)
     
-    return philly_map
+    philly_map.save(path+'/property_heat.html')
 
 
 
 #FYI (for testing)
-
+'''
 all_agencies_map(agency_df).save("phi_map.html")
 
 find_location(997161, agency_df, prop_df).save("find_location.html")
@@ -141,4 +134,4 @@ find_location(997161, agency_df, prop_df).save("find_location.html")
 clustered_map(10000, agency_df, prop_df).save("clustered_map.html")
 
 heat_map(5000, agency_df, prop_df).save("heat_map.html")
-
+'''
