@@ -34,6 +34,7 @@ def go(args):
         prop_clean = gd.store_document_info(prop, agency, float(args[3]))
         gd.write_documents(prop_clean, path)
     if args[1] =='viz':
+        os.mkdir(path)
         dvm.all_agencies_map(path, agency)
         dvm.clustered_map(path, agency, prop)
         dvm.heat_map(path, agency, prop)
