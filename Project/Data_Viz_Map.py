@@ -33,7 +33,7 @@ def all_agencies_map(path, agency_df, show=False):
 
 
 
-def find_location(key, agency_df, prop_df):
+def find_location(key, path, agency_df, prop_df):
     '''
     Build a function for searching real estate tax delinquencies properties,
     and plot it on the interactive map.
