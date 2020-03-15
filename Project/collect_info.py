@@ -68,7 +68,7 @@ def search_closest_agency(property_id, agency_df, prop_df):
         prop_df (pandas framework):properties dataset
     '''
 
-    prop_df = prop_df[prop_df['objectid'] == property_id]
+    prop_df = prop_df[prop_df['opa_number'] == property_id]
     prop_lon, prop_lat = tuple(prop_df[['lon', 'lat']].values.tolist()[0])
 
     min_distance = 999999.99

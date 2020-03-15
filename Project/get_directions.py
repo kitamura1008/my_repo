@@ -17,6 +17,7 @@ def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     for k, v in new_col_dict.items():
         prop_df[k] = prop_df.apply(lambda x: 
                     agency_dict[v][x['closest agency']], axis=1)
+
     prop_df['agency_coords'] = prop_df.apply(lambda x:
                             (agency_dict['Y'][x['closest agency']], 
                             agency_dict['X'][x['closest agency']]),
