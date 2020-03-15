@@ -1,15 +1,10 @@
-print('file opened')
 import sys
-print('sys imported')
 import os
-print('os imported')
-import collect_info
-print('collect_info imported')
-import Data_Viz_Map
-print('Data_Viz_Map imported')
-import analyze_data
-import get_directions
-print('get_directions imported')
+import collect_info as ci
+import Data_Viz_Map as dvm
+import analyze_data as ad
+import get_directions as gd
+
 
 agencies_url = 'http://data-phl.opendata.arcgis.com/data\
 sets/3265538198254e9fb6a8974745adab51_0.csv'
@@ -19,8 +14,6 @@ properties_url = 'https://phl.carto.com/api/v2/sql?q=SELECT+*+FROM\
 ies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
 
 def go(args):
-    print(args[0],args[1],args[2])
-    print(type(args[1]),type(args[2]))
     usage_docs = ("usage: python3 {} <raw data filename> <training filename>"
              " <testing filename> [seed]")
     usage_viz = ("usage: python3 {} <raw data filename> <training filename>"
@@ -28,27 +21,28 @@ def go(args):
     usage_cust_serve = ("usage: python3 {} <raw data filename> <training filename>"
              " <testing filename> [seed]")
     path = os.getcwd()+'/' +args[2]
-    print('here')
-    agency, prop = collect_info.create_dfs(agencies_url, properties_url)
-    print('dfs made')
-    agency, prop = collect_info.data_cleaning(agency, prop)
-    print('dfs made')
-    prop = collect_info.append_column_closet_agency(agency, prop)
+    print('reading csvs')
+    agency, prop = ci.create_dfs(agencies_url, properties_url)
+    print('cleaning csvs')
+    agency, prop = ci.data_cleaning(agency, prop)
+    print('adding closest agency')
+    prop = ci.append_column_closest_agency(agency, prop)
     print('dfs cross walked')
     if args[1] == 'docs':
         print('if passed')
-        os.mkdir(new_path)
-        prop_clean = get_directions.store_document_info(prop, agency, float(args[3]))
-        get_directions.write_documents(prop_clean, new_path)
-    if args[1] =='viz':
         os.mkdir(path)
-        Data_Viz_Map.all_agencies_map(path, agency)
-        Data_Viz_Map.clustered_map(path, agency, prop)
-        Data_Viz_Map.heat_map(path, agency, prop)
-        #analyze_data.make_total_due_pie(prop)
-        #analyze_data.make_agency_bar_chart(
-        #    analyze_data.make_closest_agency_table(prop))
-        #analyze_data.make_hist_day_since_last_payment(prop)
+        prop_clean = gd.store_document_info(prop, agency, float(args[3]))
+        gd.write_documents(prop_clean, path)
+    if args[1] =='viz':
+        dvm.all_agencies_map(path, agency)
+        dvm.clustered_map(path, agency, prop)
+        dvm.heat_map(path, agency, prop)
+        ad.make_total_due_pie(path, prop)
+        ad.make_agency_bar_chart(path,
+            ad.make_closest_agency_table(prop))
+        ad.make_hist_day_since_last_payment(path, prop)
+    if args[1] =='find_property':
+        dvm.find_location(args[2], agency, prop)
 
 
 

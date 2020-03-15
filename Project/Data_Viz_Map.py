@@ -45,7 +45,7 @@ def find_location(key, agency_df, prop_df):
     '''
 
     housing = folium.map.FeatureGroup()
-    prop = prop_df[prop_df['objectid'] == key]
+    prop = prop_df[prop_df['opa_number'] == key]
 
     # Make a philly_map with zoom and centered at the targetted property.
     philly_map = folium.Map(location=[float(prop.lat), float(prop.lon)], zoom_start=14)

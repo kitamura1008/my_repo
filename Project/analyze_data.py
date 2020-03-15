@@ -7,7 +7,7 @@ from collections import Counter
 import datetime as dt
 
 
-def make_total_due_pie(properties_df):
+def make_total_due_pie(path, properties_df):
     '''
     Make a histrgram of the total due and save it as png file.
     
@@ -38,11 +38,10 @@ def make_total_due_pie(properties_df):
     plt.legend(label,fancybox=True,bbox_to_anchor=(1.0,0.4), frameon=False)
     plt.rcParams['font.size'] = 14
     plt.title(title, fontsize = 18)
-    plt.savefig('total_due_pie.png', bbox_inches='tight')
-    plt.show()
+    plt.savefig(path+'/total_due_pie.png', bbox_inches='tight')
 
 
-def make_agency_bar_chart(closest_agency_table):
+def make_agency_bar_chart(path, closest_agency_table):
     '''
     Make a histrgram of the total due and save it as png file.
     
@@ -80,12 +79,11 @@ def make_agency_bar_chart(closest_agency_table):
     ax1.set_ylabel("Total due mean($)")
     ax2.set_ylabel("The number of delinquent properties")
 
-    plt.savefig('total_due_mean_and_number_of_properties.png', 
+    plt.savefig(path+'/total_due_mean_and_number_of_properties.png', 
     	         bbox_inches='tight')
-    plt.show()
 
 
-def make_hist_day_since_last_payment(properties_df):
+def make_hist_day_since_last_payment(path, properties_df):
 	# convert str into datetime about most_recent_payment_date
     payment_date_df = list(map(lambda x: dt.datetime.strptime(x, '%Y-%m-%d'),
                                          properties_df['most_recent_payment_date']))
@@ -107,7 +105,7 @@ def make_hist_day_since_last_payment(properties_df):
     ax = fig.add_subplot(1, 1, 1)
     ax.hist(day_from_last_payment)
     ax.set_xlabel('days since most recent payment date')
-    plt.show()
+    plt.savefig(path+'/bar_time_since_payment.png')
 
 # Accessary functions below
 def determine_range(number):
