@@ -9,12 +9,9 @@ import datetime as dt
 
 '''
 This file contains 5 functions(3 for making figures and 2 for accessaries)
-
-FYI (for testing)
-agency_df, prop_df = append_column_closet_agency(data_cleaning(create_dfs()))
 '''
 
-def make_total_due_pie(props_df):
+def make_total_due_pie(path, properties_df):
     '''
     Make a pie chart of the total due and save it as png file.
     
@@ -48,12 +45,10 @@ def make_total_due_pie(props_df):
                     list(total_due_df.index)[0])
     plt.title(title, fontsize = 18)
 
-    # save and show
-    plt.savefig('total_due_pie.png', bbox_inches='tight')
-    plt.show()
+    plt.savefig(path+'/total_due_pie.png', bbox_inches='tight')
 
 
-def make_agency_bar_chart(closest_agency_table):
+def make_agency_bar_chart(path, closest_agency_table):
     '''
     Make a bar chart of the total due mean and the number of properties at each agency,
     and save it as png file.
@@ -97,13 +92,11 @@ def make_agency_bar_chart(closest_agency_table):
     ax1.set_ylabel("Total due mean($)")
     ax2.set_ylabel("The number of delinquent properties")
 
-    # save and show
-    plt.savefig('total_due_mean_and_number_of_properties.png', 
-                 bbox_inches='tight')
-    plt.show()
+    plt.savefig(path+'/total_due_mean_and_number_of_properties.png', 
+    	         bbox_inches='tight')
 
 
-def make_hist_days_since_last_payment(props_df):
+def make_hist_day_since_last_payment(path, properties_df):
     '''
     Make a histrgram of days since most last payment, and save it as png file.
     
@@ -113,7 +106,7 @@ def make_hist_days_since_last_payment(props_df):
     Output:
          None. create a histgram, save it ans show it.
     '''
-    # convert str into datetime about most_recent_payment_date
+	# convert str into datetime about most_recent_payment_date
     payment_date_df = list(map(lambda x: dt.datetime.strptime(x, '%Y-%m-%d'),
                                          props_df['most_recent_payment_date']))
     # convert datetime into day
@@ -141,9 +134,7 @@ def make_hist_days_since_last_payment(props_df):
     ax.set_title(title, fontsize=16)
     ax.set_xlabel('days since most recent payment date')
 
-    # save and show
-    plt.savefig('days_hist.png', bbox_inches='tight')
-    plt.show()
+    plt.savefig(path+'/bar_time_since_payment.png')
 
 
 # Accessary functions below

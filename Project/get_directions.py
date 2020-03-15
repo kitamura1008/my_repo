@@ -11,7 +11,7 @@ def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     new_col_dict = {'agency_address':'STREET_ADDRESS','agency_name':'AGENCY',
                     'agency_phone':'PHONE_NUMBER', 'agency_url':'WEBSITE_URL'}
     prop_df = prop_df[['opa_number','street_address', 'owner', 'total_due',
-                               'lat','lon','closest agency']]
+                        'lat','lon','closest agency']]
     prop_df['prop_coords'] = list(zip(prop_df.lat,prop_df.lon))
 
     for k, v in new_col_dict.items():
@@ -20,9 +20,10 @@ def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     prop_df['agency_coords'] = prop_df.apply(lambda x:
                             (agency_dict['Y'][x['closest agency']], 
                             agency_dict['X'][x['closest agency']]),
-                                                    axis=1)
+                            axis=1)
     prop_df['service_dist'] = prop_df.apply(lambda x: 
-                            distance.distance(x.prop_coords, x.agency_coords).miles,
+                            distance.distance(x.prop_coords,
+                                x.agency_coords).miles,
                             axis=1)
 
     return prop_df[prop_df.service_dist > min_dist_to_service]
@@ -31,20 +32,21 @@ def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
 def get_directions(prop_coords, agency_coords, mode='driving'):
     orig = re.sub('[( )]','',str(prop_coords))
     end = re.sub('[( )]','',str(agency_coords))
-    x = gmaps.directions(orig, end,mode=mode)
-    total_duration = x[0]['legs'][0]['duration']['text']
+    dir_obj = gmaps.directions(orig, end,mode=mode)
+    total_duration = dir_obj[0]['legs'][0]['duration']['text']
     fare = ''
     steps_list = []
-    for i in x[0]['legs'][0]['steps']:
+    for i in dir_obj[0]['legs'][0]['steps']:
         string = i['html_instructions'] + ' ' + i['distance']['text']
         if 'transit_details' in i.keys():
             string += ' ({} for {} stops)'.format(
             i['transit_details']['line']['name'],
             i['transit_details']['num_stops'])
-        cleaned_str = ' '.join(re.sub('<[^>]+>', ' ', string).replace('&nbsp;', ' ').split())
+        cleaned_str = ' '.join(re.sub('<[^>]+>', ' ',
+                    string).replace('&nbsp;', ' ').split())
         steps_list.append(cleaned_str)
     if mode == 'transit':
-        fare = x[0]['fare']['text']
+        fare = dir_obj[0]['fare']['text']
         return steps_list, total_duration, fare
     return steps_list, total_duration
 
