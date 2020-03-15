@@ -75,8 +75,7 @@ def find_location(key, path, agency_df, prop_df):
         fill=True, fill_color='red', fill_opacity=0.4))
 
     location = philly_map.add_child(housing)
-    location.save(path+'/matched_agency_location.html')
-
+    location.save(path+'/'+str(key)+'.html')
 
 def clustered_map(path, agency_df, prop_df):
     '''
