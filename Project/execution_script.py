@@ -22,28 +22,28 @@ def go(args):
     if args[1] not in ['docs', 'viz', 'find_property']:
         return print(usage.format(args[0], args[0], args[0]))
 
-    usage_docs = ("usage: python3 {} <raw data filename> <training filename>"
-             " <testing filename> [seed]")
-    usage_viz = ("usage: python3 {} <new folder name> <training filename>"
-             " <testing filename> [seed]")
-    usage_cust_serve = ("usage: python3 {} <raw data filename> <training filename>"
-             " <testing filename> [seed]")
     path = os.getcwd()+'/' +args[2]
+    if not os.path.exists(path):
+        os.mkdir(path)
     print('Collecting and cleaning the data...')
     agency, prop = ci.create_dfs(agencies_url, properties_url)
-    print('cleaning csvs')
-    #agency, prop = ci.data_cleaning(agency, prop)
-    print('adding closest agency')
-    #prop = ci.append_column_closest_agency(agency, prop)
-    print('dfs cross walked')
+    
+    if args[1] =='find_property':
+        print('Finding property...')
+        dvm.find_location(int(args[3]), path, agency, prop)
+        return print('Saved at {}'.format(path))
+
+    agency, prop = ci.data_cleaning(agency, prop)
+    prop = ci.append_column_closest_agency(agency, prop)
+
     if args[1] == 'docs':
         print('Creating Documents...')
-        os.mkdir(path)
         prop_clean = gd.store_document_info(prop, agency, float(args[3]))
         gd.write_documents(prop_clean, path)
+        return print('Saved at {}'.format(path))
+
     if args[1] =='viz':
         print('Creating Visualizations...')
-        os.mkdir(path)
         dvm.all_agencies_map(path, agency)
         dvm.clustered_map(path, agency, prop)
         dvm.heat_map(path, agency, prop)
@@ -51,10 +51,7 @@ def go(args):
         ad.make_agency_bar_chart(path,
             ad.make_closest_agency_table(prop))
         ad.make_hist_day_since_last_payment(path, prop)
-    if args[1] =='find_property':
-        print('Finding property...')
-        os.mkdir(path)
-        dvm.find_location(int(args[3]), path, agency, prop)
+        return print('Saved at {}'.format(path))
 
 
 if __name__ == "__main__":
