@@ -41,7 +41,7 @@ def data_cleaning(agency_df, prop_df):
 
     return agency_df, prop_df
 
-def append_column_closet_agency(agency_df, prop_df):
+def append_column_closest_agency(agency_df, prop_df):
     '''
     Apepend a column which indicate the closest agency from each property.
 
