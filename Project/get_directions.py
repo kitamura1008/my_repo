@@ -1,31 +1,25 @@
-import requests
 import pandas as pd
-from docx import document
+from docx import Document
 from geopy import distance
+import googlemaps
+import re
 
-my_key = '5b3ce3597851110001cf6248dde0fad6d307455badca9a590c6deb72'
-headers = {
-    'Accept': 'application/json, application/geo+json,\
-            application/gpx+xml, img/png; charset=utf-8',
-    'Authorization': my_key,
-    'Content-Type': 'application/json; charset=utf-8'}
-url = 'https://api.openrouteservice.org/v2/directions/driving-car'
+gmaps = googlemaps.Client(key='AIzaSyB4XeimIWa4ArmXVyBE53HKv4GukiWQh9w')
 
-def store_document_info(prop_df, agency_df, min_dist_to_service=0.75):
-    doc_data = {}
+def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     agency_dict = agency_df.set_index('OBJECTID').to_dict()
-    prop_df = prop_df[['street_address', 'owner', 'total_due',
-                               'lat','lon','closest agency']]
-    prop_df['prop_coords'] = list(zip(prop_df.lon,
-                                   prop_df.lat))
     new_col_dict = {'agency_address':'STREET_ADDRESS','agency_name':'AGENCY',
                     'agency_phone':'PHONE_NUMBER', 'agency_url':'WEBSITE_URL'}
+    prop_df = prop_df[['opa_number','street_address', 'owner', 'total_due',
+                               'lat','lon','closest agency']]
+    prop_df['prop_coords'] = list(zip(prop_df.lat,prop_df.lon))
 
     for k, v in new_col_dict.items():
-        prop_df[k] = prop_df.apply(lambda x: agency_dict[v][x['closest agency']], 
-                     axis=1)
-    prop_df['agency_coords'] = prop_df.apply(lambda x: (agency_dict['X'][x['closest agency']], 
-                                                    agency_dict['Y'][x['closest agency']]),
+        prop_df[k] = prop_df.apply(lambda x: 
+                    agency_dict[v][x['closest agency']], axis=1)
+    prop_df['agency_coords'] = prop_df.apply(lambda x:
+                            (agency_dict['Y'][x['closest agency']], 
+                            agency_dict['X'][x['closest agency']]),
                                                     axis=1)
     prop_df['service_dist'] = prop_df.apply(lambda x: 
                             distance.distance(x.prop_coords, x.agency_coords).miles,
@@ -34,71 +28,66 @@ def store_document_info(prop_df, agency_df, min_dist_to_service=0.75):
     return prop_df[prop_df.service_dist > min_dist_to_service]
 
 
-def get_directions(prop_coords, agency_coords):
-    body = {"coordinates":[prop_coords,agency_coords], "units": "mi","maneuvers":"false"}
-    call = requests.post(url, json=body, headers=headers)
-
-    if not 'routes' in call.json().keys():
-        return 'Directions Unavailable'
-
-    steps = call.json()['routes'][0]['segments'][0]['steps']
+def get_directions(prop_coords, agency_coords, mode='driving'):
+    orig = re.sub('[( )]','',str(prop_coords))
+    end = re.sub('[( )]','',str(agency_coords))
+    x = gmaps.directions(orig, end,mode=mode)
+    total_duration = x[0]['legs'][0]['duration']['text']
+    fare = ''
     steps_list = []
-    for i in steps:
-        dist = round(i['distance'],2)
-        unit = 'mi'
-        if dist <= 0.47349:
-            dist = round(i['distance']*5280)
-            unit = 'ft'
-        formatted = '{} ({} {})'.format(i['instruction'], dist, unit)
-        if dist == 0.0:
-            formatted = i['instruction']
-        steps_list.append(formatted)
-
-    return steps_list
-
-
-def write_directions(list_of_dicts, , doc):
-    for i in list_of_dicts:
-        doc.add_paragraph(i['instriction'], style='List Bullet')
-    return doc
-
-write_dirs_ouput = write_dirs(test)
-document = Document()
-first_paragraph = "You are receiving this notice becuase your property at {} is tax delinquent and your property has been identified\
-as having no housing counseling office in your immediate vicinity.  Your nearest service location is {}, located at {}.\
-This is approximately {} mile(s) from your home and directions are enclosed at the bottom of this notice.\
-While we offer services to help you remain in your home through this process and to prevent foreclosure,\
-these housing counseling agencies are important supplements.".format('street address', 'service location',
-    'service address', 'DISTANCE')
-document.add_heading('Directions:', level=1)
-
-#make bullet list of directions
-for i in write_dirs_ouput:
-    document.add_paragraph(i, style='List Bullet')
+    for i in x[0]['legs'][0]['steps']:
+        string = i['html_instructions'] + ' ' + i['distance']['text']
+        if 'transit_details' in i.keys():
+            string += ' ({} for {} stops)'.format(
+            i['transit_details']['line']['name'],
+            i['transit_details']['num_stops'])
+        cleaned_str = ' '.join(re.sub('<[^>]+>', ' ', string).replace('&nbsp;', ' ').split())
+        steps_list.append(cleaned_str)
+    if mode == 'transit':
+        fare = x[0]['fare']['text']
+        return steps_list, total_duration, fare
+    return steps_list, total_duration
 
 
-from dataclasses import dataclass
+def write_documents(df, path):
+    for row in df.itertuples():
+        driving, drive_dur = get_directions(row.prop_coords, row.agency_coords)
+        transit, tran_dur, fare = get_directions(row.prop_coords,
+            row.agency_coords, 'transit')
+        dirs = get_directions(row.prop_coords, row.agency_coords)
+        doc = Document()
+        first_paragraph = ("You are receiving this notice because your "
+            "property at {} is tax delinquent and we have identified that "
+            "you have no housing counseling office in your immediate vicinity. "
+            "Your nearest service location is {}. This is approximately {} "
+            "mile(s) from your home and directions are enclosed at the bottom "
+            "of this notice. While we offer services to help you remain in your "
+            "home through this process and to prevent foreclosure, we partner "
+            "with housing counseling agencies to offer important supplemental services.\
+            ".format(row.street_address, row.agency_name, round(row.service_dist,2)))
+    
+        doc.add_paragraph(first_paragraph)
+        doc.add_heading('Agency Information:', level=1)
+        doc.add_paragraph(row.agency_name)
+        doc.add_paragraph(row.agency_url)
+        doc.add_paragraph(row.agency_phone)
+        doc.add_paragraph(row.agency_address)
 
-@dataclass
-Class Notices:
-
-
-
-
-dist = []
-hca_name = []
-hca_address = []
-hca_number = []
-hca_url = []
-
-def dist_test(lat, lon)
-        for i in hca.itertuples():
-            min_dist = 13000 
-            num = 0
-            #address = ''
-            #hca_number = 
-            curr_dist = distance.distance((lat, lon), (i.X, i.Y)).miles
-            if curr_dist < min_dist:
-                min_dist = curr_dist
-                num = i.PHONE_NUMBER
-        return (dist, num)
+        doc.add_heading('Directions:', level=1)
+        doc.add_paragraph('Driving from {} for about {}'.format(
+            row.street_address, drive_dur),
+            style='Intense Quote')
+        if len(dirs) <= 1:
+            doc.add_paragraph('Directions Unavailable')
+        else:
+            for step in driving:
+                doc.add_paragraph(step, style='List Bullet')
+        doc.add_paragraph('Transit from {} for about {}. FARES: {}'.format(
+            row.street_address, tran_dur, fare),
+            style='Intense Quote')
+        if len(dirs) <= 1:
+            doc.add_paragraph('Directions Unavailable')
+        else:
+            for step in transit:
+                doc.add_paragraph(step, style='List Bullet')
+        doc.save(path+'/'+str(row.opa_number)+'.docx')

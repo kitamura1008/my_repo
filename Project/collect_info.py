@@ -8,7 +8,7 @@ properties_url = 'https://phl.carto.com/api/v2/sql?q=SELECT+*+FROM\
 +real_estate_tax_delinquencies&filename=real_estate_tax_delinquenc\
 ies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
 
-def create_dfs():
+def create_dfs(agencies_url, properties_url):
     '''
     Create two data frames, agencies_df and properties_df
     Inputs
