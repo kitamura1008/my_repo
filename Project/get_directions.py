@@ -8,6 +8,7 @@ gmaps = googlemaps.Client(key='AIzaSyB4XeimIWa4ArmXVyBE53HKv4GukiWQh9w')
 
 def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     agency_dict = agency_df.set_index('OBJECTID').to_dict()
+    pd.set_option('mode.chained_assignment', None)
     new_col_dict = {'agency_address':'STREET_ADDRESS','agency_name':'AGENCY',
                     'agency_phone':'PHONE_NUMBER', 'agency_url':'WEBSITE_URL'}
     prop_df = prop_df[['opa_number','street_address', 'owner', 'total_due',
@@ -35,7 +36,7 @@ def get_directions(prop_coords, agency_coords, mode='driving'):
     end = re.sub('[( )]','',str(agency_coords))
     dir_obj = gmaps.directions(orig, end,mode=mode)
     total_duration = dir_obj[0]['legs'][0]['duration']['text']
-    fare = ''
+    fare = 'Unknown'
     steps_list = []
     for i in dir_obj[0]['legs'][0]['steps']:
         string = i['html_instructions'] + ' ' + i['distance']['text']
@@ -47,7 +48,8 @@ def get_directions(prop_coords, agency_coords, mode='driving'):
                     string).replace('&nbsp;', ' ').split())
         steps_list.append(cleaned_str)
     if mode == 'transit':
-        fare = dir_obj[0]['fare']['text']
+        if 'fare' in dir_obj[0].keys():
+            fare = dir_obj[0]['fare']['text']
         return steps_list, total_duration, fare
     return steps_list, total_duration
 
