@@ -42,7 +42,7 @@ def go(args):
             ad.make_closest_agency_table(prop))
         ad.make_hist_day_since_last_payment(path, prop)
     if args[1] =='find_property':
-        dvm.find_location(int(args[2]), agency, prop)
+        dvm.find_location(int(args[2]), path, agency, prop)
 
 
 
