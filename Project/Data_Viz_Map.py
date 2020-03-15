@@ -74,7 +74,8 @@ def find_location(key, agency_df, prop_df):
         popup=popup_sentence, radius=10, color='red',
         fill=True, fill_color='red', fill_opacity=0.4))
 
-    return philly_map.add_child(housing)
+    location = philly_map.add_child(housing)
+    location.save(path+'/matched_agency_location.html')
 
 
 def clustered_map(path, agency_df, prop_df):
@@ -113,7 +114,7 @@ def heat_map(path, agency_df, prop_df):
     '''
 
     # Create a map with all agencies
-    philly_map = all_agencies_map(agency_df)
+    philly_map = all_agencies_map(path, agency_df, show=True)
 
     # Add heat data.
     heat_data = []
