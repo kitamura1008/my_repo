@@ -10,9 +10,11 @@ ies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
 
 def create_dfs(agencies_url, properties_url):
     '''
-    Create two data frames, agencies_df and properties_df
+    Create two data frames, agencies_df and properties_df.
+
     Inputs
-        None
+        agencies_url: url for agencies dataset.
+        properties_url: url for properties dataset.
     Outputs
         agencies_df and properties_df(Pandas data frame)
     '''
@@ -23,11 +25,17 @@ def create_dfs(agencies_url, properties_url):
 
 def data_cleaning(agency_df, prop_df):
     '''
-    Clean dataframe.
+    Clean dataframe. Delete unnecessary columns and drop rows including NaN.
+    We use only properties for residential.
+
+    Inputs
+        agency_df (pandas framework): agencies dataset
+        prop_df (pandas framework):properties dataset
+    Output
+        cleaned agency_df and prop_df.
 
     '''
-    agency_df = agency_df[(agency_df['FORECLOSURE'] == 'Yes' )] #&
-                             # (agencies_df['SPECIALTY'] != any)
+    agency_df = agency_df[(agency_df['FORECLOSURE'] == 'Yes' )]
 
     prop_df = prop_df.drop(['return_mail', 'zip_4', 'unit_type',
         'unit_num', 'co_owner', 'agreement_agency', 'payment_agreement', 
@@ -43,7 +51,7 @@ def data_cleaning(agency_df, prop_df):
 
 def append_column_closest_agency(agency_df, prop_df):
     '''
-    Apepend a column which indicate the closest agency from each property.
+    Apepend a column which indicates the closest agency from each property.
 
     Inputs
         agency_df (pandas framework): agencies dataset
@@ -59,26 +67,19 @@ def append_column_closest_agency(agency_df, prop_df):
 
 def search_closest_agency(property_id, agency_df, prop_df):
     '''
-    Given Object_id of a property, find out the closest agency ID
-    and the distance(meters) to the agency.
-
-    Inputs
-        property_id (integer): objectid of a property
-        agency_df (pandas framework): agencies dataset
-        prop_df (pandas framework):properties dataset
+    Given Object_id of a property and the two dataframe,
+    find out the closest agency ID and the distance(miles) to the proper.
     '''
-
     prop_df = prop_df[prop_df['opa_number'] == property_id]
     prop_lon, prop_lat = tuple(prop_df[['lon', 'lat']].values.tolist()[0])
 
     min_distance = 999999.99
     closest_ag_id = 0
-    closest_ag_lon = .0
-    closest_ag_lat = .0
+    closest_ag_lon, closest_ag_lat = .0, .0
 
     # Compute the closest agency and the distance to the agency
     for agency_row in agency_df.itertuples(index=False, name=None):
-        dist_squared = abs(prop_lon - agency_row[0])**2 + abs(prop_lat - agency_row[1])**2
+        dist_squared = (prop_lon - agency_row[0])**2 + (prop_lat - agency_row[1])**2
         if dist_squared < min_distance:
             min_distance = dist_squared
             closest_ag_id = agency_row[2]
@@ -92,24 +93,22 @@ def search_closest_agency(property_id, agency_df, prop_df):
 
 def get_lst_closest_agencies(agency_df, prop_df):
     '''
-    Given agency dataframe, prop dataframe, compute list of the closest agency from every property.
+    Given agency dataframe and prop dataframe, compute list of
+    the closest agency from every property.
     '''
     
     lst_closest_ags = []
     for prop_row in prop_df.itertuples(index=False, name=None):
         min_distance = 9999.99
         closest_ag_id = 0
-        closest_ag_lon = .0
-        closest_ag_lat = .0
+        closest_ag_lon, closest_ag_lat = .0, .0
+        
         for agency_row in agency_df.itertuples(index=False, name=None):
-            dist_squared = abs(prop_row[-1] - agency_row[0])**2 + abs(prop_row[-2] - agency_row[1])**2
+            dist_squared = (prop_row[-1] - agency_row[0])**2 + (prop_row[-2] - agency_row[1])**2
             if dist_squared < min_distance:
                 min_distance = dist_squared
                 closest_ag_id = agency_row[2]
-               #closest_ag_lon = agency_row[0]
-               #closest_ag_lat = agency_row[1]
 
-      # ft = haversine(prop_lon, prop_lat, closest_ag_lon, closest_ag_lat)
         lst_closest_ags.append(closest_ag_id)
     
     return lst_closest_ags
