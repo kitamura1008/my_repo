@@ -13,25 +13,41 @@ properties_url = 'https://phl.carto.com/api/v2/sql?q=SELECT+*+FROM\
 +real_estate_tax_delinquencies&filename=real_estate_tax_delinquenc\
 ies&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator'
 
+backup_agencies = 'HousingCounselingAgencies.csv'
+backup_properties = 'real_estate_tax_delinquencies.csv'
+
 def go(args):
     usage = ("Directions Usage: python3 {} docs <new_folder_name>"
             " [distance (mi)] \n"
             "Visualization Usage: python3 {} viz <new_folder_name> \n"
             "Property Location Usage: python3 {} find_property <new_folder_name>"
             " [opa_number]")
-    if args[1] not in ['docs', 'viz', 'find_property']:
+    agencies = agencies_url
+    properties = properties_url
+    if args[-1] == 'local':
+        agencies = backup_agencies
+        properties = backup_properties
+    if len(args) < 3 or args[1] not in ['docs', 'viz', 'find_property']:
         return print(usage.format(args[0], args[0], args[0]))
+    if len(args)>=4 and 'local' not in args:
+        try:
+            float(args[3])
+        except:
+            return print(usage.format(args[0], args[0], args[0]))
 
     path = os.getcwd()+'/' +args[2]
     if not os.path.exists(path):
         os.mkdir(path)
     print('Collecting and cleaning the data...')
-    agency, prop = ci.create_dfs(agencies_url, properties_url)
+    agency, prop = ci.create_dfs(agencies, properties)
     
     if args[1] =='find_property':
         print('Finding property...')
-        dvm.find_location(int(args[3]), path, agency, prop)
-        return print('Saved at {}'.format(path))
+        check = set(prop.opa_number)
+        if int(args[3]) in check:
+            dvm.find_location(int(args[3]), path, agency, prop)
+            return print('Saved at {}'.format(path))
+        return print('OPA Number not in data')
 
     agency, prop = ci.data_cleaning(agency, prop)
     prop = ci.append_column_closest_agency(agency, prop)
