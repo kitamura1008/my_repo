@@ -1,5 +1,22 @@
 Finding Delinquent Property in Philadelphia
 
+
+PACKAGES
+folium
+seaborn
+matplotlib
+googlemaps
+docx
+pandas
+re
+datetime
+numpy
+collections
+geopy
+sys
+os
+math
+
 USAGE:
 General Note: Over the last few days, we have experienced periodic trouble collecting data from the url.  As such, we have added the ability to read the csv directly from our project folder.  If you run into trouble on the data collection and want to collect data locally, please add 'local' as an extra argument in any call you make using the below usages.
 
