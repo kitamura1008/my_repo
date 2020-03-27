@@ -1,0 +1,65 @@
+Note on the Rubric 
+------------------
+Professor Ferrari and Samuels conferred on all projects before assigning a final project grade to each one. Although some of the grading criteria may appear subjective to you, we were as objective as possible and assigned almost all the grades using checkpoints on the essential parts that we required for the project. 
+
+The soft criterium we used is mostly concentrated on items #2 (Data Analysis) and #3 (Scope and Complexity). The final grade for those items resulted from Instructors' joint evaluation of all the projects as a whole. We are also recognizing in those rubrics team's effort and dedication. We consider a project more complex if it required different types of skills and used more diverse content we covered in during the quarter (e.g., if the team downloaded and used two ready-to-use data sets VS if the data was constructed using complex webscraping, data cleaning, record linkage, and everything was stored in a relational SQL database).
+
+Please note that these grades are final! We will not make any grade adjusts unless it is due to an arithmetic error. 
+
+As always with assignments, feel free to reach out if you do have any questions about improvement or clarification. Please respond via email if you do have any questions (not on piazza). With moving to remote learning for the spring, We will be busy preparing for the next quarter so we may not have a chance to respond right away. 
+
+-------
+
+Project Evaluation Points:
+    - Completeness & Correctness (Project Requirements):
+        Points Possible: 60
+        Points Obtained: 57
+
+    - Design:
+        Points Possible: 25
+        Points Obtained: 25 
+
+    - Coding Style:
+        Points Possible: 15
+        Points Obtained: 11
+
+        #Comments: The naming of your files could be better. Never capitalize a file name 
+        (i.e., Data_Viz_Map). Additionally some of your docstrings are missing documentation for 
+        the input arguments. 
+
+
+Total Points: 93 / 100
+
+
+Breakdown of Completeness & Correctness:       
+
+  - Contains README and/or a pdf with textual information describing the project.
+        Points Possible: 10
+        Points Obtained: 10 
+	
+  - Fulfills requirement #1: Two Data Sources(Web or API and another source)
+        Points Possible: 15
+        Points Obtained: 15 
+
+  - Fulfills requirement #2: Data analysis component
+        Points Possible: 15
+        Points Obtained: 15 
+
+        #Comment: The maps are beautiful by the way. 
+
+  - Fulfills requirement #3: Project Scope & Complexity
+        Points Possible: 15
+        Points Obtained: 12 
+
+        #Comment: For a group of 4, the project could do with a bit more complexity to it. Maybe 
+        adding in a more interactive component to the project instead of having to rerun python 
+        script over again on the command line. For example, having a graphical user interface 
+        using django or a GUI package or simply having a text-based user interface. 
+
+  - Fulfills requirement #4: Visualization or Textual Component
+        Points Possible: 5
+        Points Obtained: 5
+
+
+Comments: >
+
