@@ -9,7 +9,9 @@ from docx import Document
 from geopy import distance
 import googlemaps
 
-GMAPS = googlemaps.Client(key='AIzaSyB4XeimIWa4ArmXVyBE53HKv4GukiWQh9w')
+
+GMAPS = googlemaps.Client(key='my_key')  # You have to replace an actual api key with 'my_key'
+
 
 def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     '''
