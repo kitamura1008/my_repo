@@ -1,7 +1,8 @@
 '''
 PA #4: Clean Pima Indians Diabetes Data
 
-Your name
+Tetsuo Fujino
+Takayuki Kitamura
 '''
 
 import sys
@@ -36,9 +37,31 @@ def clean(raw_filename, training_filename, testing_filename, seed):
         (cleaned) testing data
       seed: seed for splitting the original data into testing and training sets.
     '''
+    df = pd.read_csv(raw_filename, skipinitialspace=True)
+    df = df.drop(['Triceps skin foldthickness',
+                  '2-Hour serum insulin (mu U/ml)'], axis=1)
+    # drop observations which include 0.
+    df = df[(df['Plasma glucose level'] != 0) &
+            (df['Diastolic Blood Pressure'] != 0) &
+            (df['Body Mass Index'] != 0)]
 
-    # replace pass with your code and remove this comment.
-    pass
+    # convert the numeric data into categorical data.
+    for key, value in BOUNDS.items():
+        df[key] = pd.cut(df[key], value[0],
+                         labels=value[1], right=False)
+
+    # split df into two dfs.
+    train_df, test_df = train_test_split(df, train_size=0.9,
+                                         random_state=seed)
+
+    # reset index.
+    train_df = train_df.reset_index(drop=True)
+    test_df = test_df.reset_index(drop=True)
+
+    # save as csv files.
+    train_df.to_csv(training_filename, index=False)
+    test_df.to_csv(testing_filename, index=False)
+
 
 def go(args):
     '''
