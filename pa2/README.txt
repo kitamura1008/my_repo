@@ -1,14 +1,13 @@
-Course Search Engine: backend
+Schelling Model of Housing Segregation
 
-ui: Django interface
-  courses.py: you will modify this file.
+schelling.py: skeleton file.  Your code goes in this file.
+utility.py: utility functions for dealing with grids.
 
-  **** Do not modify these files ****
-    test_courses.py
-    course_information.sqlite3
-    db.sqlite3
-    manage.py
-    res
-    search
-    static
-    ui
+test_do_simulation.py: test code for use with py.test for 
+  schelling.do_simulation
+test_is_satisfied.py: test code for use with py.test for 
+  schelling.is_satisfied
+
+tests: sample grids used in the testing code
+
+README.txt: this file
