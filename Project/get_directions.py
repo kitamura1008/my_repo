@@ -4,7 +4,7 @@ from geopy import distance
 import googlemaps
 import re
 
-gmaps = googlemaps.Client(key='AIzaSyB4XeimIWa4ArmXVyBE53HKv4GukiWQh9w')
+gmaps = googlemaps.Client(key='my_key')  # You have to replace an actual api key with 'my_key'
 
 def store_document_info(prop_df, agency_df, min_dist_to_service=2.0):
     agency_dict = agency_df.set_index('OBJECTID').to_dict()
